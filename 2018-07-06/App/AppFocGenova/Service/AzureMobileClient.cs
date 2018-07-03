@@ -14,7 +14,7 @@ namespace AppFocGenova.Service
 
         public AzureMobileClient()
         {
-            client = new MobileServiceClient("https://>URL Azure Mobile App Service>");
+            client = new MobileServiceClient("https://<URL Azure Mobile App Service>");
             
         }
 
@@ -24,7 +24,7 @@ namespace AppFocGenova.Service
             try
             {
                 //--> On line Sync
-                //Rappresenta una tablla temporanea !!
+                //Rappresenta una tabella temporanea !!
                 IMobileServiceTable<FocaccePost> Focacciatable = client.GetTable<FocaccePost>();
                 return await Focacciatable.ToListAsync();
             }
