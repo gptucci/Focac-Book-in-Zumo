@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.Azure.Mobile.Server;
+using System;
 
-namespace AppFocGenova.Models
+namespace Focac_BookService.DataObjects
 {
-    public class FocaccePost
+    public class FocaccePost : EntityData
     {
-        public string Id { get; set; }
-
         public string NomeUtente { get; set; }
 
         public string Luogo { get; set; }
@@ -15,9 +12,5 @@ namespace AppFocGenova.Models
         public DateTime DataOra { get; set; }
 
         public int Voto { get; set; }
-
-
-
-
     }
 }

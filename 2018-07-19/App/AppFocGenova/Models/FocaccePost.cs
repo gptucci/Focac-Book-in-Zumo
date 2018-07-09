@@ -8,6 +8,9 @@ namespace AppFocGenova.Models
     {
         public string Id { get; set; }
 
+        [Microsoft.WindowsAzure.MobileServices.Version]
+        public byte[] Version { get; set; }
+
         public string NomeUtente { get; set; }
 
         public string Luogo { get; set; }

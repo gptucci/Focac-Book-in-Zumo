@@ -58,7 +58,23 @@ namespace AppFocGenova.Service
                 
             }
 
-            
+            //Gestione concorrenza
+            catch (MobileServicePreconditionFailedException<FocaccePost> conflict)
+            {
+                FocaccePost versioneserver = conflict.Item;
+                //Qui si può decidere che fare
+
+
+                //Vince il server
+                //Non devo fare nulla
+
+
+                //Vince il client
+                focaccePost.Version = versioneserver.Version;
+                await Focacciatable.UpdateAsync(focaccePost);
+
+            }
+
             catch (Exception e)
             {
 
