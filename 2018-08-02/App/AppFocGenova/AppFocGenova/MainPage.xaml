@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AppFocGenova"
+             x:Class="AppFocGenova.MainPage" Title="Focac-Book.3">
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid AbsoluteLayout.LayoutFlags="All" 
+              AbsoluteLayout.LayoutBounds="0,0,1,1"
+              RowSpacing="0">
+            <Grid.RowDefinitions>
+                
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout  Grid.Row="0" Orientation="Horizontal"  HorizontalOptions="CenterAndExpand"
+                         BackgroundColor="#F2C500" VerticalOptions="End" Margin="9,9,9,9">
+                <Button  Text="Aggiungi Post" 
+                        Command="{Binding AggiungiPostFocacciaPostCommand}" 
+                        IsEnabled="{Binding IsNotBusy}" 
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        TextColor="Black"
+                        BorderWidth="0"/>
+                <Button  Text="Esegui Pull" 
+                        Command="{Binding SyncFocacciaPostCommand}" 
+                        IsEnabled="{Binding IsNotBusy}" 
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        TextColor="Black"
+                        BorderWidth="0"/>
+                <Button  Text="Esegui Push" 
+                        Command="{Binding PushFocacciaPostCommand}" 
+                        IsEnabled="{Binding IsNotBusy}" 
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        TextColor="Black"
+                        BorderWidth="0"/>
+
+            </StackLayout>
+            
+            <ListView 
+                Grid.Row="1"
+                HasUnevenRows ="true"
+                ItemsSource="{Binding CollectionFocaccePost}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                RefreshCommand="{Binding LoadFocaccePostCommand}"
+                SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                x:Name="ListViewFocaccePost">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="16,12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding NomeUtente}" 
+                                   HorizontalOptions="Start" 
+                                   FontSize="Medium" 
+                                   Style="{DynamicResource ListItemTextStyle}" 
+                                   TextColor="Black" 
+                                   VerticalTextAlignment="Center"/>
+                                <Label Grid.Column="1" 
+                                   HorizontalOptions="Center" 
+                                   FontSize="Medium"  
+                                   Text="{Binding Luogo}" 
+                                   Style="{DynamicResource ListItemTextStyle}" 
+                                   TextColor="Black" 
+                                   VerticalTextAlignment="Center"/>
+                                <Label Grid.Column="2" 
+                                   HorizontalOptions="End" 
+                                   FontSize="16" 
+                                   Text="{Binding DataOra,StringFormat= '{0:dd/MM/yyyy HH:mm}'}" 
+                                   Style="{DynamicResource ListItemTextStyle}" 
+                                   TextColor="Black" 
+                                   VerticalTextAlignment="Center"/>
+                                <Label Grid.Column="3" 
+                                   HorizontalOptions="End" 
+                                   FontSize="Medium"  
+                                   Text="{Binding Voto}" 
+                                   Style="{DynamicResource ListItemTextStyle}" 
+                                   TextColor="Black" 
+                                   VerticalTextAlignment="End"/>
+                                
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+
+        </Grid>
+        
+    </AbsoluteLayout>
+
+</ContentPage>

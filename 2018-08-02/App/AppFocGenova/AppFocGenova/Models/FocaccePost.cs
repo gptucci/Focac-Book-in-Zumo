@@ -17,6 +17,8 @@ namespace AppFocGenova.Models
         [Microsoft.WindowsAzure.MobileServices.CreatedAt]
         public DateTimeOffset? CreatedAt { get; set; }
 
+        [Microsoft.WindowsAzure.MobileServices.Deleted]
+        public bool Deleted { get; set; }
 
         public string NomeUtente { get; set; }
 
