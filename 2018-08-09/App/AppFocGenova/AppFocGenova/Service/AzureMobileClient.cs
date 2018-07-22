@@ -18,7 +18,7 @@ namespace AppFocGenova.Service
 
         public AzureMobileClient()
         {
-            client = new MobileServiceClient("https://focac-book.azurewebsites.net");
+            client = new MobileServiceClient("<URL Servizio Backend>");
             
         }
 
@@ -138,7 +138,7 @@ namespace AppFocGenova.Service
             }
             else
             {
-                //In alcuni casi (per esempio per proxy interposti) error.result è null
+                //In alcuni casi (per esempio per proxy interposti o altri casi sfortunati) error.result è null
                 await error.CancelAndDiscardItemAsync();
 
             }
