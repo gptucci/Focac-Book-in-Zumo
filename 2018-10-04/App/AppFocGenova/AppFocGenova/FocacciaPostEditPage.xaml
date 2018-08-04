@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppFocGenova.FocacciaPostEditPage"
+             Title="{Binding Title}">
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid AbsoluteLayout.LayoutFlags="All" 
+              AbsoluteLayout.LayoutBounds="0,0,1,1"
+              RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0"  Orientation="Horizontal" Padding="8" Spacing="16" BackgroundColor="#F2C500">
+                <Label Text="Nome Utente:"
+                        TextColor="White" 
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Start">
+
+                </Label>
+                <Entry Text="{Binding NomeUtente}" HorizontalOptions="FillAndExpand">
+                </Entry>
+            </StackLayout>
+            <StackLayout  Grid.Row="1" Orientation="Horizontal" Padding="8,0,8,4" Spacing="16" 
+                         BackgroundColor="#F2C500">
+                <Label Text="      Luogo:"
+                       VerticalOptions="Center"
+                        TextColor="White" />
+                <Entry Text="{Binding Luogo}" HorizontalOptions="FillAndExpand">
+
+                </Entry>
+            </StackLayout>
+            <StackLayout  Grid.Row="2" Orientation="Horizontal" Padding="8,0,8,4" Spacing="16" 
+                         BackgroundColor="#F2C500">
+                <Label Text="Voto:"
+                       VerticalOptions="Center"
+                        TextColor="White" />
+                <Entry Text="{Binding Voto}" HorizontalOptions="FillAndExpand" Keyboard="Numeric">
+                </Entry>
+            </StackLayout>
+            <StackLayout  Grid.Row="3" Orientation="Horizontal" Padding="8,0,8,4" Spacing="16" 
+                         BackgroundColor="#F2C500">
+                <Label Text="Data/Ora: "
+                       VerticalOptions="End"
+                        TextColor="White" />
+
+                <DatePicker Date="{Binding DataPost}"    HorizontalOptions="FillAndExpand" >
+                </DatePicker>
+                <TimePicker Time="{Binding OraPost}"  HorizontalOptions="FillAndExpand" >
+                </TimePicker>
+            </StackLayout>
+            <StackLayout  Grid.Row="4" Orientation="Horizontal" Padding="8,0,8,4" Spacing="16" 
+                         HorizontalOptions="Center" VerticalOptions="End">
+                <Button Grid.Row="4"   Text="Salva" 
+                        Command="{Binding SalvaFocacciaPostCommand}" 
+                        IsEnabled="{Binding IsNotBusy}" 
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        TextColor="White"
+                        BorderWidth="0"/>
+                <Button Grid.Row="4"   Text="Annulla" 
+                        Command="{Binding AnnullaCommand}" 
+                        IsEnabled="{Binding IsNotBusy}" 
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        TextColor="White"
+                        BorderWidth="0"/>
+                <Button Grid.Row="4"   Text="Cancella" 
+                        Command="{Binding CancellaFocacciaPostCommand}" 
+                        IsEnabled="{Binding IsNotBusy}" 
+                        IsVisible="{Binding VisualizzaCancella}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        TextColor="White"
+                        BorderWidth="0"/>
+
+            </StackLayout>
+        </Grid>
+
+    </AbsoluteLayout>
+</ContentPage>

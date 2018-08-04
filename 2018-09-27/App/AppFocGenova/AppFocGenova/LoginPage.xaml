@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:AppFocGenova;assembly:AppFocGenova"
+             x:Class="AppFocGenova.LoginPage">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="CenterAndExpand" 
+                     VerticalOptions="CenterAndExpand"
+                     Padding="9">
+            <Label Text="Login con account Facebook per la App Foca-Book" 
+                   VerticalOptions="Center"/>
+            <controls:FacebookLoginButton/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

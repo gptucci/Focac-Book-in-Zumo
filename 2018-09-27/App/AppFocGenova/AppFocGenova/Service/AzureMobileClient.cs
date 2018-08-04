@@ -3,6 +3,7 @@ using AppFocGenova.Models;
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Microsoft.WindowsAzure.MobileServices.Sync;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,7 +24,7 @@ namespace AppFocGenova.Service
 
         public AzureMobileClient()
         {
-            client = new MobileServiceClient("<URL backend Azure>);
+            client = new MobileServiceClient("https://focac-book.azurewebsites.net");
             
             
         }
@@ -47,18 +48,26 @@ namespace AppFocGenova.Service
         }
 
 
-        public Task LoginAsync()
-        {
+        //public Task LoginAsync()
+        //{
 
-            var loginProvider = DependencyService.Get<ILoginProvider>();
-            return loginProvider.LoginAsync(client);
-            
-        }
+        //    var loginProvider = DependencyService.Get<ILoginProvider>();
+        //    return loginProvider.LoginAsync(client);
+        //}
 
         public async Task<ICollection<FocaccePost>> ReadAllItemsAsync()
         {
             try
             {
+
+                var token = new JObject();
+                token["access_token"] = Settings.AuthToken;
+                var user = await client.LoginAsync(MobileServiceAuthenticationProvider.Facebook, token);
+
+                //user contiene un oggetto di tipo MobileServiceUser che contiene il token rilasciato da azure
+                //a fronte del token ricevuto da facebook
+                //In app reali il token deve essere salvato per non dover fare tutte le volte il login
+
                 IMobileServiceSyncTable<FocaccePost> Focacciatable = client.GetSyncTable<FocaccePost>();
                 await SyncFocacceDB();
                 return await Focacciatable.ToListAsync();
@@ -186,8 +195,9 @@ namespace AppFocGenova.Service
 
                 throw;
             }
-
+           
         }
+
 
     }
 

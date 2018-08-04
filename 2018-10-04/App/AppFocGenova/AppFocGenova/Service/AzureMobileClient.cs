@@ -3,6 +3,7 @@ using AppFocGenova.Models;
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Microsoft.WindowsAzure.MobileServices.Sync;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,7 +24,7 @@ namespace AppFocGenova.Service
 
         public AzureMobileClient()
         {
-            client = new MobileServiceClient("<URL backend Azure>);
+            client = new MobileServiceClient("<URL Backend>");
             
             
         }
@@ -47,18 +48,17 @@ namespace AppFocGenova.Service
         }
 
 
-        public Task LoginAsync()
-        {
-
-            var loginProvider = DependencyService.Get<ILoginProvider>();
-            return loginProvider.LoginAsync(client);
-            
-        }
+       
 
         public async Task<ICollection<FocaccePost>> ReadAllItemsAsync()
         {
             try
             {
+
+                var token = new JObject();
+                token["access_token"] = Settings.AuthToken;
+                var user = await client.LoginAsync(MobileServiceAuthenticationProvider.Facebook, token);
+
                 IMobileServiceSyncTable<FocaccePost> Focacciatable = client.GetSyncTable<FocaccePost>();
                 await SyncFocacceDB();
                 return await Focacciatable.ToListAsync();
@@ -127,23 +127,7 @@ namespace AppFocGenova.Service
 
         }
 
-        //private async Task ResolveConflictAsync(MobileServiceTableOperationError error)
-        //{
-
-
-        //    if (error.OperationKind == MobileServiceTableOperationKind.Update && error.Result != null)
-        //    {
-
-        //        await error.CancelAndUpdateItemAsync(error.Result);
-   
-        //    }
-        //    else
-        //    {
-        //        await error.CancelAndDiscardItemAsync();
-
-        //    }
-        //}
-
+        
         public async Task AddUpdateItemAsync(FocaccePost focaccePost)
         {
 
@@ -186,8 +170,33 @@ namespace AppFocGenova.Service
 
                 throw;
             }
-
+           
         }
+
+
+        public async Task<string> GetIdentityAsync()
+        {
+            if (client.CurrentUser == null || client.CurrentUser?.MobileServiceAuthenticationToken == null)
+            {
+                throw new InvalidOperationException("Not Authenticated");
+            }
+
+            
+
+            if (string.IsNullOrEmpty(Settings.UserId) )
+            {
+                var identities = await client.InvokeApiAsync<List<AppServiceIdentity>>("/.auth/me");
+                if (identities.Count > 0)
+                {
+                    return identities[0].UserId;
+                }
+                    
+            }
+
+            
+            return null;
+        }
+
 
     }
 
