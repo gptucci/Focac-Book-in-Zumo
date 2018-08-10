@@ -113,7 +113,7 @@ namespace AppFocGenova.Service
 
             catch (Exception ex)
             {
-                Debug.WriteLine("Unable to sync coffees, that is alright as we have offline capabilities: " + ex);
+                Debug.WriteLine("Unable to sync focacce, that is alright as we have offline capabilities: " + ex);
             }
 
         }

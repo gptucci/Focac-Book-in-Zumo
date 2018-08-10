@@ -24,7 +24,7 @@ namespace AppFocGenova.Service
 
         public AzureMobileClient()
         {
-            client = new MobileServiceClient("https://focac-book.azurewebsites.net");
+            client = new MobileServiceClient("<URL Azure Service>");
             
             
         }
@@ -131,7 +131,7 @@ namespace AppFocGenova.Service
 
             catch (Exception ex)
             {
-                Debug.WriteLine("Unable to sync coffees, that is alright as we have offline capabilities: " + ex);
+                Debug.WriteLine("Unable to sync focacce, that is alright as we have offline capabilities: " + ex);
             }
 
         }
